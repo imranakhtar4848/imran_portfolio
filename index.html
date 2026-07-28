@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imran Akhtar — Android Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F1117;
+    --bg-elevated:#171A23;
+    --bg-elevated-2:#1D2230;
+    --text:#EDEFF4;
+    --text-dim:#9BA0B0;
+    --text-faint:#5C6273;
+    --border:#262B38;
+    --purple:#7F52FF;
+    --coral:#FF6B57;
+    --green:#4ADE80;
+    --gradient: linear-gradient(90deg, var(--purple), var(--coral));
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--purple);color:#fff;}
+
+  a{color:inherit;text-decoration:none;}
+
+  .wrap{max-width:920px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- Top tab bar ---------- */
+  header.tabbar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(15,17,23,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .tabbar-inner{
+    max-width:920px;margin:0 auto;padding:0 28px;
+    display:flex;align-items:center;gap:2px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .tabbar-inner::-webkit-scrollbar{display:none;}
+  .tab{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    color:var(--text-dim);
+    padding:14px 16px;
+    border-bottom:2px solid transparent;
+    white-space:nowrap;
+    display:flex;align-items:center;gap:7px;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .tab:hover{color:var(--text);}
+  .tab .dot{width:6px;height:6px;border-radius:50%;background:var(--text-faint);}
+  .tab.active{color:var(--text);border-bottom-color:var(--purple);}
+  .tab.active .dot{background:var(--green);}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:88px 0 64px;position:relative;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    color:var(--purple);
+    letter-spacing:.06em;
+    display:flex;align-items:center;gap:8px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:"";width:7px;height:7px;border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 0 3px rgba(74,222,128,0.15);
+  }
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(34px,5.5vw,54px);
+    line-height:1.08;
+    letter-spacing:-.01em;
+    margin-bottom:16px;
+  }
+  .role-line{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(16px,2vw,19px);
+    font-weight:500;
+    color:transparent;
+    background:var(--gradient);
+    -webkit-background-clip:text;
+    background-clip:text;
+    margin-bottom:22px;
+  }
+  .pitch{
+    max-width:600px;
+    font-size:16px;
+    color:var(--text-dim);
+    margin-bottom:32px;
+  }
+  .contact-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .chip{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    padding:9px 14px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    color:var(--text-dim);
+    display:flex;align-items:center;gap:7px;
+    transition:border-color .15s ease, color .15s ease, transform .15s ease;
+  }
+  .chip:hover{border-color:var(--purple);color:var(--text);transform:translateY(-1px);}
+
+  /* ---------- Section shell ---------- */
+  section{padding:56px 0;border-top:1px solid var(--border);}
+  .section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:36px;}
+  .section-num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;color:var(--text-faint);
+  }
+  h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:26px;font-weight:600;
+    letter-spacing:-.01em;
+  }
+
+  /* ---------- Experience ---------- */
+  .job{
+    display:grid;
+    grid-template-columns:170px 1fr;
+    gap:24px;
+    padding:22px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .job:last-child{border-bottom:none;}
+  .job-dates{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;color:var(--text-faint);
+    padding-top:3px;
+  }
+  .job-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;margin-bottom:3px;}
+  .job-co{font-size:13.5px;color:var(--purple);margin-bottom:10px;}
+  .job ul{list-style:none;}
+  .job li{
+    position:relative;padding-left:16px;
+    font-size:14.5px;color:var(--text-dim);
+    margin-bottom:6px;
+  }
+  .job li::before{
+    content:"";position:absolute;left:0;top:9px;
+    width:5px;height:5px;border-radius:50%;
+    background:var(--text-faint);
+  }
+  @media(max-width:600px){
+    .job{grid-template-columns:1fr;gap:6px;}
+  }
+
+  /* ---------- Projects ---------- */
+  .proj-grid{display:flex;flex-direction:column;gap:20px;}
+  .proj-card{
+    background:var(--bg-elevated);
+    border:1px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .proj-card:hover{border-color:var(--purple);transform:translateY(-2px);}
+  .proj-chrome{
+    display:flex;align-items:center;gap:8px;
+    padding:12px 18px;
+    background:var(--bg-elevated-2);
+    border-bottom:1px solid var(--border);
+  }
+  .proj-chrome .traffic{display:flex;gap:6px;margin-right:6px;}
+  .proj-chrome .traffic span{width:9px;height:9px;border-radius:50%;}
+  .proj-chrome .traffic span:nth-child(1){background:#FF6B57;}
+  .proj-chrome .traffic span:nth-child(2){background:#F5C451;}
+  .proj-chrome .traffic span:nth-child(3){background:#4ADE80;}
+  .proj-file{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;color:var(--text-dim);
+  }
+  .proj-status{
+    margin-left:auto;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    color:var(--green);
+    border:1px solid rgba(74,222,128,0.3);
+    background:rgba(74,222,128,0.08);
+    padding:3px 8px;border-radius:20px;
+  }
+  .proj-body{padding:24px;}
+  .proj-title{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:600;margin-bottom:4px;}
+  .proj-dates{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--text-faint);margin-bottom:14px;}
+  .proj-desc{font-size:14.5px;color:var(--text-dim);margin-bottom:16px;}
+  .proj-desc strong{color:var(--text);font-weight:600;}
+  .proj-features{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+  .feature-tag{
+    font-size:12px;color:var(--text-dim);
+    background:var(--bg);
+    border:1px solid var(--border);
+    padding:5px 10px;border-radius:6px;
+  }
+  .proj-stack{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;}
+  .stack-tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;color:var(--purple);
+    background:rgba(127,82,255,0.08);
+    border:1px solid rgba(127,82,255,0.25);
+    padding:4px 9px;border-radius:5px;
+  }
+  .proj-links{display:flex;flex-wrap:wrap;gap:10px;}
+  .proj-link{
+    display:inline-flex;align-items:center;gap:7px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;font-weight:500;
+    color:var(--bg);
+    background:var(--gradient);
+    padding:9px 16px;border-radius:8px;
+    transition:opacity .15s ease, transform .15s ease;
+  }
+  .proj-link.secondary{
+    color:var(--text);
+    background:var(--bg-elevated-2);
+    border:1px solid var(--border);
+  }
+  .proj-link:hover{opacity:.88;transform:translateY(-1px);}
+  .proj-link svg{width:13px;height:13px;flex-shrink:0;}
+
+  /* ---------- Skills ---------- */
+  .skill-groups{display:grid;grid-template-columns:1fr 1fr;gap:24px 40px;}
+  @media(max-width:600px){.skill-groups{grid-template-columns:1fr;}}
+  .skill-group-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;color:var(--text-faint);
+    text-transform:uppercase;letter-spacing:.06em;
+    margin-bottom:10px;
+  }
+  .skill-tags{display:flex;flex-wrap:wrap;gap:7px;}
+  .skill-tag{
+    font-size:13px;color:var(--text-dim);
+    background:var(--bg-elevated);
+    border:1px solid var(--border);
+    padding:5px 11px;border-radius:6px;
+  }
+
+  /* ---------- Education / Languages ---------- */
+  .ed-item{padding:16px 0;border-bottom:1px solid var(--border);}
+  .ed-item:last-child{border-bottom:none;}
+  .ed-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15.5px;}
+  .ed-sub{font-size:13.5px;color:var(--text-dim);margin-top:2px;}
+  .ed-date{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--text-faint);margin-top:4px;}
+  .badge-progress{
+    display:inline-block;margin-left:8px;
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    color:var(--coral);border:1px solid rgba(255,107,87,.35);
+    background:rgba(255,107,87,.08);
+    padding:2px 7px;border-radius:20px;vertical-align:middle;
+  }
+
+  .lang-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;}
+  .lang-row:last-child{border-bottom:none;}
+  .lang-name{font-weight:500;}
+  .lang-level{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim);}
+
+  /* ---------- Footer ---------- */
+  footer{padding:56px 0 72px;text-align:center;}
+  footer .cta{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:22px;font-weight:600;margin-bottom:18px;
+  }
+  footer .contact-row{justify-content:center;margin-bottom:28px;}
+  footer .copyright{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-faint);}
+</style>
+</head>
+<body>
+
+<header class="tabbar">
+  <div class="tabbar-inner">
+    <a href="#profile" class="tab active"><span class="dot"></span>Profile.kt</a>
+    <a href="#experience" class="tab"><span class="dot"></span>Experience.kt</a>
+    <a href="#projects" class="tab"><span class="dot"></span>Projects.kt</a>
+    <a href="#skills" class="tab"><span class="dot"></span>Skills.kt</a>
+    <a href="#education" class="tab"><span class="dot"></span>Education.kt</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero" id="profile" style="border-top:none;">
+    <div class="eyebrow">AVAILABLE&nbsp;—&nbsp;OPEN TO OPPORTUNITIES</div>
+    <h1>Imran Akhtar</h1>
+    <div class="role-line">Android Developer · Kotlin · Jetpack Compose · Android TV· Flutter</div>
+    <p class="pitch">Mobile App Developer with 5+ years of experience delivering native Android and cross-platform mobile applications, including smart TV platforms, real-time communication features, and cloud-backed services. Shipped multiple production apps to the Play Store and App Store, with a track record of building reliable, modular software using modern architecture practices.</p>
+    <div class="contact-row">
+      <a class="chip" href="mailto:imranakhtar4848@gmail.com">✉ imranakhtar4848@gmail.com</a>
+      <a class="chip" href="tel:+436606986252">☎ +43 660 6986252</a>
+      <a class="chip" href="https://www.linkedin.com/in/imran-akhtar-07b8a518a" target="_blank" rel="noopener">in/imran-akhtar</a>
+      <a class="chip" href="https://github.com/imranakhtar4848" target="_blank" rel="noopener">⌥ github.com/imranakhtar4848</a>
+      <span class="chip">📍 Linz, Austria</span>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>Experience</h2>
+    </div>
+
+    <div class="job">
+      <div class="job-dates">Feb 2024 — Current</div>
+      <div>
+        <div class="job-title">Mobile App Developer</div>
+        <div class="job-co">ruwido austria gmbh · Neumarkt am Wallersee, Austria</div>
+        <ul>
+          <li>Architected Android smart TV applications using MVVM, improving code structure and long-term maintainability.</li>
+          <li>Built native Android features in Kotlin with Jetpack Compose across a range of smart TV hardware.</li>
+          <li>Implemented HDMI-CEC integrations for device interoperability and automated TV–set-top-box communication.</li>
+          <li>Adopted GitHub Copilot into the workflow to speed up delivery and reduce boilerplate coding time.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="job-dates">Apr 2021 — Mar 2023</div>
+      <div>
+        <div class="job-title">Mobile App Developer</div>
+        <div class="job-co">TechnoLyte · Lahore, Pakistan</div>
+        <ul>
+          <li>Delivered native Android and iOS applications using Java, Kotlin, and Flutter within a modular MVVM architecture.</li>
+          <li>Built real-time communication features — live audio/video calls, chat, and broadcasting — using ZEGO Cloud, Agora.io, and WebSockets.</li>
+          <li>Designed serverless, cloud-backed features using Firebase, reducing backend infrastructure overhead.</li>
+          <li>Took apps from development through to publication on both the Play Store and App Store.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="job-dates">Jan 2021 — Sep 2021</div>
+      <div>
+        <div class="job-title">Android Developer</div>
+        <div class="job-co">Biocos International Private Limited · Lahore, Pakistan</div>
+        <ul>
+          <li>Owned ongoing development of an in-house Android product built in Java and Kotlin.</li>
+          <li>Extended app functionality through API integrations and strengthened reliability through unit testing.</li>
+          <li>Published and maintained app releases on the Google Play Store.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>Projects</h2>
+    </div>
+
+    <div class="proj-grid">
+
+      <div class="proj-card">
+        <div class="proj-chrome">
+          <div class="traffic"><span></span><span></span><span></span></div>
+          <div class="proj-file">TourGuide.apk</div>
+          <div class="proj-status">SHIPPED</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">TourGuide — Travel &amp; Local Discovery App</div>
+          <div class="proj-dates">Jan 2022 – Mar 2023 · Android · TechnoLyte</div>
+          <p class="proj-desc">A travel app connecting tourists across Pakistan with <strong>local guides, vehicle rentals, room bookings, and local businesses</strong> — built to help travellers plan, book, and navigate trips beyond the standard tourist trail.</p>
+          <div class="proj-features">
+            <span class="feature-tag">Tour guide booking</span>
+            <span class="feature-tag">Vehicle rental</span>
+            <span class="feature-tag">Room listings</span>
+            <span class="feature-tag">Local business marketplace</span>
+            <span class="feature-tag">Location-based search + live weather</span>
+            <span class="feature-tag">Community &amp; blogs</span>
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">Android</span>
+            <span class="stack-tag">Firebase</span>
+            <span class="stack-tag">REST APIs</span>
+            <span class="stack-tag">Geolocation</span>
+          </div>
+          <div class="proj-links">
+            <a class="proj-link" href="https://play.google.com/store/apps/details?id=com.technolyte.tourguide&hl=en" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5V3.5C3 2.91 3.34 2.39 3.84 2.15L13.69 12L3.84 21.85C3.34 21.6 3 21.09 3 20.5M16.81 15.12L6.05 21.34L14.54 12.85L16.81 15.12M20.16 10.81C20.5 11.08 20.75 11.5 20.75 12C20.75 12.5 20.53 12.9 20.18 13.18L17.89 14.5L15.39 12L17.89 9.5L20.16 10.81M6.05 2.66L16.81 8.88L14.54 11.15L6.05 2.66Z"/></svg>
+              View on Google Play
+            </a>
+            <a class="proj-link secondary" href="https://apps.apple.com/at/app/tour-guide-pakistan/id1631533463" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5M13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/></svg>
+              View on App Store
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-chrome">
+          <div class="traffic"><span></span><span></span><span></span></div>
+          <div class="proj-file">Zoombooks.apk</div>
+          <div class="proj-status">SHIPPED</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">Zoombooks — Receipt &amp; Expense Management App</div>
+          <div class="proj-dates">Oct 2021 – Mar 2023 · Android · TechnoLyte</div>
+          <p class="proj-desc">A bookkeeping app for freelancers and drivers (Uber, Lyft, taxi) that turns a photo of a receipt into <strong>automated income/expense tracking, tax categorization, and exportable reports</strong> — removing manual accounting work entirely.</p>
+          <div class="proj-features">
+            <span class="feature-tag">Receipt capture &amp; auto-recording</span>
+            <span class="feature-tag">Sales tax handling (GST/HST/VAT)</span>
+            <span class="feature-tag">Excel/CSV export</span>
+            <span class="feature-tag">Web dashboard access</span>
+            <span class="feature-tag">Transaction notifications</span>
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">Android</span>
+            <span class="stack-tag">Firebase</span>
+            <span class="stack-tag">Stripe</span>
+            <span class="stack-tag">REST APIs</span>
+          </div>
+          <div class="proj-links">
+            <a class="proj-link" href="https://play.google.com/store/apps/details?id=co.technolyte.zoombooks&hl=en" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5V3.5C3 2.91 3.34 2.39 3.84 2.15L13.69 12L3.84 21.85C3.34 21.6 3 21.09 3 20.5M16.81 15.12L6.05 21.34L14.54 12.85L16.81 15.12M20.16 10.81C20.5 11.08 20.75 11.5 20.75 12C20.75 12.5 20.53 12.9 20.18 13.18L17.89 14.5L15.39 12L17.89 9.5L20.16 10.81M6.05 2.66L16.81 8.88L14.54 11.15L6.05 2.66Z"/></svg>
+              View on Google Play
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-chrome">
+          <div class="traffic"><span></span><span></span><span></span></div>
+          <div class="proj-file">ApptNow.apk</div>
+          <div class="proj-status">SHIPPED</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">ApptNow — Appointment Scheduling App</div>
+          <div class="proj-dates">Jul 2021 – Nov 2021 · Android</div>
+          <p class="proj-desc">A free scheduling app for repeat-client businesses — salons, barbershops, retail stores — built to <strong>replace paper appointment books and cut no-shows</strong> with automated reminder notifications and a web panel for business/employee management.</p>
+          <div class="proj-features">
+            <span class="feature-tag">Real-time availability booking</span>
+            <span class="feature-tag">Automated reminders</span>
+            <span class="feature-tag">Business web panel</span>
+            <span class="feature-tag">Employee scheduling</span>
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">Android</span>
+            <span class="stack-tag">Firebase</span>
+            <span class="stack-tag">Notifications API</span>
+          </div>
+          <div class="proj-links">
+            <a class="proj-link" href="https://play.google.com/store/apps/details?id=com.mlbench.apptnow&hl=en" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5V3.5C3 2.91 3.34 2.39 3.84 2.15L13.69 12L3.84 21.85C3.34 21.6 3 21.09 3 20.5M16.81 15.12L6.05 21.34L14.54 12.85L16.81 15.12M20.16 10.81C20.5 11.08 20.75 11.5 20.75 12C20.75 12.5 20.53 12.9 20.18 13.18L17.89 14.5L15.39 12L17.89 9.5L20.16 10.81M6.05 2.66L16.81 8.88L14.54 11.15L6.05 2.66Z"/></svg>
+              View on Google Play
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2>Skills</h2>
+    </div>
+    <div class="skill-groups">
+      <div>
+        <div class="skill-group-label">Android (Native)</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Kotlin</span><span class="skill-tag">Java</span>
+          <span class="skill-tag">Jetpack Compose</span><span class="skill-tag">MVVM</span>
+          <span class="skill-tag">Android SDK</span><span class="skill-tag">AndroidX</span>
+          <span class="skill-tag">Coroutines</span><span class="skill-tag">Flow</span>
+          <span class="skill-tag">Navigation Component</span><span class="skill-tag">Material Design</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">Cross-Platform &amp; iOS</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Flutter</span><span class="skill-tag">Dart</span>
+          <span class="skill-tag">GetX</span><span class="skill-tag">BLoC</span>
+          <span class="skill-tag">Provider</span><span class="skill-tag">Native iOS integration</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">Dependency Injection &amp; Data</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Hilt</span><span class="skill-tag">Dagger</span>
+          <span class="skill-tag">Retrofit</span><span class="skill-tag">OkHttp</span>
+          <span class="skill-tag">Room</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">Real-Time &amp; Hardware</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Agora.io</span><span class="skill-tag">ZEGO Cloud</span>
+          <span class="skill-tag">Zoom SDK</span><span class="skill-tag">WebSockets</span>
+          <span class="skill-tag">HDMI-CEC</span><span class="skill-tag">BLE</span>
+          <span class="skill-tag">ExoPlayer</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">Cloud &amp; Backend</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Firebase</span><span class="skill-tag">Cloud Functions</span>
+          <span class="skill-tag">REST APIs</span><span class="skill-tag">Stripe</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">Tools &amp; Practices</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Git/GitHub</span><span class="skill-tag">GitHub Copilot</span>
+          <span class="skill-tag">Gradle</span><span class="skill-tag">JUnit</span>
+          <span class="skill-tag">Espresso</span><span class="skill-tag">Accessibility Services</span>
+          <span class="skill-tag">AR</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2>Education &amp; Languages</h2>
+    </div>
+
+    <div class="ed-item">
+      <div class="ed-title">Master of Science in Artificial Intelligence <span class="badge-progress">IN PROGRESS</span></div>
+      <div class="ed-sub">Johannes Kepler University Linz, Austria</div>
+      <div class="ed-date">Expected 2027</div>
+    </div>
+    <div class="ed-item">
+      <div class="ed-title">Bachelor of Science in Software Engineering</div>
+      <div class="ed-sub">University of Management and Technology, Lahore, Pakistan</div>
+      <div class="ed-date">Sep 2014 – Jan 2020</div>
+    </div>
+
+    <div style="height:28px;"></div>
+
+    <div class="lang-row"><span class="lang-name">Urdu</span><span class="lang-level">Native</span></div>
+    <div class="lang-row"><span class="lang-name">English</span><span class="lang-level">C1 Reading/Writing · B2 Spoken</span></div>
+    <div class="lang-row"><span class="lang-name">German</span><span class="lang-level">A1 Basic</span></div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="cta">Let's build something reliable.</div>
+  <div class="contact-row wrap" style="display:flex;">
+    <a class="chip" href="mailto:imranakhtar4848@gmail.com">✉ imranakhtar4848@gmail.com</a>
+    <a class="chip" href="https://www.linkedin.com/in/imran-akhtar-07b8a518a" target="_blank" rel="noopener">in/imran-akhtar</a>
+    <a class="chip" href="https://github.com/imranakhtar4848" target="_blank" rel="noopener">⌥ github.com/imranakhtar4848</a>
+  </div>
+  <div class="copyright">© 2026 Imran Akhtar</div>
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = sections[0].id;
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+    });
+    tabs.forEach(tab => {
+      tab.classList.toggle('active', tab.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+
+</body>
+</html>
